@@ -1,4 +1,4 @@
-package com.polyak.iconswitch;
+package io.scalaproject.iconswitch;
 
 /**
  * Created by yarolegovich on 31.03.2017.

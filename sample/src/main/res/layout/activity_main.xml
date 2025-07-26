@@ -9,10 +9,6 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="?android:actionBarSize">
@@ -20,9 +16,10 @@
             <FrameLayout
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                tools:ignore="ExtraText">
 
-                <com.polyak.iconswitch.IconSwitch
+                <io.scalaproject.iconswitch.IconSwitch
                     android:id="@+id/icon_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -48,57 +45,5 @@
                 android:textColor="@android:color/white" />
 
         </FrameLayout>
-    </android.support.design.widget.AppBarLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <FrameLayout
-            android:id="@+id/map_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <com.yarolegovich.mp.MaterialPreferenceScreen
-            android:id="@+id/content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/white">
-
-            <com.yarolegovich.mp.MaterialPreferenceCategory
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:mpc_title="Credits">
-
-                <com.yarolegovich.mp.MaterialRightIconPreference
-                    android:id="@+id/credit_polyak"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:mp_icon="@drawable/ic_github_circle_grey600_24dp"
-                    app:mp_summary="@string/credit_summary_polyak"
-                    app:mp_title="@string/credit_title_polyak" />
-
-                <com.yarolegovich.mp.MaterialRightIconPreference
-                    android:id="@+id/credit_yarolegovich"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:mp_icon="@drawable/ic_github_circle_grey600_24dp"
-                    app:mp_summary="@string/credit_summary_yarolegovich"
-                    app:mp_title="@string/credit_title_yarolegovich" />
-
-                <com.yarolegovich.mp.MaterialRightIconPreference
-                    android:id="@+id/credit_prokhoda"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:mp_icon="@drawable/ic_dribbble_grey600_24dp"
-                    app:mp_summary="@string/credit_summary_prokhoda"
-                    app:mp_title="@string/credit_title_prokhoda" />
-
-            </com.yarolegovich.mp.MaterialPreferenceCategory>
-
-        </com.yarolegovich.mp.MaterialPreferenceScreen>
-
-    </FrameLayout>
 
 </LinearLayout>

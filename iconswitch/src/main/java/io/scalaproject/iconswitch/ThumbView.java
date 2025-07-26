@@ -1,4 +1,4 @@
-package com.polyak.iconswitch;
+package io.scalaproject.iconswitch;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -6,7 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -16,9 +16,9 @@ import android.view.View;
  */
 class ThumbView extends View {
 
-    private PointF center;
+    private final PointF center;
     private float radius;
-    private Paint paint;
+    private final Paint paint;
 
     public ThumbView(Context context) {
         super(context);

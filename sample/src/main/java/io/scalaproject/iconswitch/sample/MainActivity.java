@@ -1,16 +1,10 @@
-package com.polyak.iconswitch.sample;
+package io.scalaproject.iconswitch.sample;
 
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.Window;
@@ -19,15 +13,15 @@ import android.view.animation.Interpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.polyak.iconswitch.IconSwitch;
-import com.polyak.iconswitch.IconSwitch.Checked;
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback,
-        IconSwitch.CheckedChangeListener, ValueAnimator.AnimatorUpdateListener,
-        View.OnClickListener {
+import io.scalaproject.iconswitch.IconSwitch;
+import io.scalaproject.iconswitch.IconSwitch.Checked;
+
+public class MainActivity extends AppCompatActivity {
 
     private static final int DURATION_COLOR_CHANGE_MS = 400;
 
@@ -35,12 +29,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final Uri URL_GITHUB_YAROLEGOVICH = Uri.parse("https://github.com/yarolegovich");
     private static final Uri URL_DRIBBBLE_PROKHODA = Uri.parse("https://dribbble.com/prokhoda");
 
-    private int[] toolbarColors;
+    /*private int[] toolbarColors;
     private int[] statusBarColors;
     private ValueAnimator statusBarAnimator;
     private Interpolator contentInInterpolator;
     private Interpolator contentOutInterpolator;
-    private Point revealCenter;
+    private Point revealCenter;*/
 
     private Window window;
     private View toolbar;
@@ -54,32 +48,32 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         window = getWindow();
 
-        initColors();
-        initAnimationRelatedFields();
+        //initColors();
+        //initAnimationRelatedFields();
 
-        content = findViewById(R.id.content);
+        //content = findViewById(R.id.content);
         toolbar = findViewById(R.id.toolbar);
         TextView title = (TextView) findViewById(R.id.toolbar_title);
         title.setText(R.string.app_name);
 
         iconSwitch = (IconSwitch) findViewById(R.id.icon_switch);
-        iconSwitch.setCheckedChangeListener(this);
-        updateColors(false);
+        //iconSwitch.setCheckedChangeListener((IconSwitch.CheckedChangeListener) this);
+        //updateColors(false);
 
-        FragmentManager fm = getSupportFragmentManager();
+        /*FragmentManager fm = getSupportFragmentManager();
         SupportMapFragment fragment = (SupportMapFragment) fm.findFragmentById(R.id.map_container);
         if (fragment == null) {
             fragment = new SupportMapFragment();
             fm.beginTransaction().replace(R.id.map_container, fragment).commit();
         }
-        fragment.getMapAsync(this);
+        fragment.getMapAsync(this);*/
 
-        findViewById(R.id.credit_polyak).setOnClickListener(this);
+        /*findViewById(R.id.credit_polyak).setOnClickListener(this);
         findViewById(R.id.credit_yarolegovich).setOnClickListener(this);
-        findViewById(R.id.credit_prokhoda).setOnClickListener(this);
+        findViewById(R.id.credit_prokhoda).setOnClickListener(this);*/
     }
 
-    private void updateColors(boolean animated) {
+    /*private void updateColors(boolean animated) {
         int colorIndex = iconSwitch.getChecked().ordinal();
         toolbar.setBackgroundColor(toolbarColors[colorIndex]);
         if (animated) {
@@ -107,14 +101,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .start();
     }
 
-    @Override
-    public void onAnimationUpdate(ValueAnimator animator) {
-        if (animator == statusBarAnimator) {
-            int color = (Integer) animator.getAnimatedValue();
-            window.setStatusBarColor(color);
-        }
-    }
-
     private void changeContentVisibility() {
         int targetTranslation = 0;
         Interpolator interpolator = null;
@@ -134,45 +120,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .setInterpolator(interpolator)
                 .setDuration(DURATION_COLOR_CHANGE_MS)
                 .start();
-    }
-
-    @Override
-    public void onCheckChanged(Checked current) {
-        updateColors(true);
-        changeContentVisibility();
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.credit_polyak:
-                open(URL_GITHUB_POLYAK);
-                break;
-            case R.id.credit_yarolegovich:
-                open(URL_GITHUB_YAROLEGOVICH);
-                break;
-            case R.id.credit_prokhoda:
-                open(URL_DRIBBBLE_PROKHODA);
-                break;
-        }
-    }
-
-    private void open(Uri url) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(url);
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        } else {
-            Snackbar.make(content,
-                    R.string.msg_no_browser,
-                    Snackbar.LENGTH_SHORT)
-                    .show();
-        }
     }
 
     private void initAnimationRelatedFields() {
@@ -196,9 +143,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private ValueAnimator createArgbAnimator(int leftColor, int rightColor) {
         ValueAnimator animator = ValueAnimator.ofArgb(leftColor, rightColor);
         animator.setDuration(DURATION_COLOR_CHANGE_MS);
-        animator.addUpdateListener(this);
+        animator.addUpdateListener((ValueAnimator.AnimatorUpdateListener) this);
         return animator;
-    }
+    }*/
 
     private void moveFromSwitchToToolbarSpace(Point point) {
         point.set(point.x + iconSwitch.getLeft(), point.y + iconSwitch.getTop());

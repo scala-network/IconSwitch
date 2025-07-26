@@ -1,26 +1,26 @@
 buildscript {
     repositories {
-        jcenter()
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
     }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
-        classpath 'com.novoda:bintray-release:0.4.0'
+        classpath 'com.android.tools.build:gradle:8.11.1'
     }
 }
 
 allprojects {
     repositories {
-        jcenter()
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
     }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }
 
 ext {
     userOrg = 'polyak01'
-    groupId = 'com.polyak'
+    groupId = 'io.scalaproject'
     uploadName = 'IconSwitch'
     description = 'Custom switch-like widget.'
     publishVersion = '1.0.0'

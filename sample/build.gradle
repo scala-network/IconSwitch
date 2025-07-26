@@ -1,12 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    namespace 'io.scalaproject.iconswitch.sample'
+    compileSdkVersion 36
+
     defaultConfig {
-        applicationId "com.polyak.iconswitch.sample"
+        applicationId "io.scalaproject.iconswitch.sample"
         minSdkVersion 21
-        targetSdkVersion 25
+        targetSdkVersion 36
         versionCode 1
         versionName "1.0"
     }
@@ -19,11 +20,24 @@ android {
     }
 }
 
-dependencies {
-    compile project(':iconswitch')
-    compile 'com.android.support:appcompat-v7:25.2.0'
-    compile 'com.android.support:design:25.2.0'
-    compile 'com.google.android.gms:play-services-maps:10.2.0'
+configurations.configureEach {
+    exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
+    exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
 
-    compile 'com.yarolegovich:mp:1.0.5'
+    resolutionStrategy {
+        force 'org.jetbrains.kotlin:kotlin-stdlib:1.8.22'
+    }
+}
+
+dependencies {
+    implementation project(':iconswitch')
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.core:core:1.16.0'
+    implementation 'com.google.android.material:material:1.12.0'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }

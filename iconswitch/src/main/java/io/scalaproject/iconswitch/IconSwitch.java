@@ -1,5 +1,6 @@
-package com.polyak.iconswitch;
+package io.scalaproject.iconswitch;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -9,11 +10,10 @@ import android.graphics.PointF;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.ColorInt;
-import android.support.annotation.RequiresApi;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.content.res.AppCompatResources;
+import androidx.annotation.ColorInt;
+import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.content.res.AppCompatResources;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;
@@ -25,7 +25,7 @@ import android.widget.ImageView;
 
 /**
  * Created by polyak01 on 31.03.2017.
- * https://github.com/polyak01
+ * <a href="https://github.com/polyak01">https://github.com/polyak01</a>
  */
 public class IconSwitch extends ViewGroup {
 
@@ -45,7 +45,7 @@ public class IconSwitch extends ViewGroup {
 
     private IconSwitchBg background;
 
-    private ViewDragHelper thumbDragHelper;
+    private final ViewDragHelper thumbDragHelper;
     private VelocityTracker velocityTracker;
 
     private float thumbPosition;
@@ -61,7 +61,7 @@ public class IconSwitch extends ViewGroup {
     private int inactiveTintIconRight, activeTintIconRight;
     private int thumbColorLeft, thumbColorRight;
 
-    private PointF downPoint;
+    private final PointF downPoint;
     private boolean isClick;
     private int dragState;
 
@@ -109,7 +109,10 @@ public class IconSwitch extends ViewGroup {
 
         iconSize = dpToPx(DEFAULT_IMAGE_SIZE_DP);
 
-        int colorDefInactive = getAccentColor();
+        int colorDefInactive = 0;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            colorDefInactive = getAccentColor();
+        }
         int colorDefActive = Color.WHITE;
         int colorDefBackground = ContextCompat.getColor(getContext(), R.color.isw_defaultBg);
         //noinspection UnnecessaryLocalVariable
@@ -208,6 +211,7 @@ public class IconSwitch extends ViewGroup {
         thumb.layout(thumbLeft, 0, thumbLeft + thumbDiameter, switchHeight);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent e) {
         MotionEvent event = MotionEvent.obtain(e);
@@ -271,14 +275,14 @@ public class IconSwitch extends ViewGroup {
         currentChecked = currentChecked.toggle();
         int newLeft = currentChecked == Checked.LEFT ? thumbStartLeft : thumbEndLeft;
         if (thumbDragHelper.smoothSlideViewTo(thumb, newLeft, thumb.getTop())) {
-            ViewCompat.postInvalidateOnAnimation(this);
+            this.postInvalidateOnAnimation();
         }
     }
 
     @Override
     public void computeScroll() {
         if (thumbDragHelper.continueSettling(true)) {
-            ViewCompat.postInvalidateOnAnimation(this);
+            this.postInvalidateOnAnimation();
         }
     }
 
@@ -495,9 +499,10 @@ public class IconSwitch extends ViewGroup {
         return Math.round(getResources().getDisplayMetrics().density * dp);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private int getAccentColor() {
         TypedValue typedValue = new TypedValue();
-        TypedArray a = getContext().obtainStyledAttributes(typedValue.data, new int[]{R.attr.colorAccent});
+        TypedArray a = getContext().obtainStyledAttributes(typedValue.data, new int[]{android.R.attr.colorAccent});
         int color = a.getColor(0, 0);
         a.recycle();
         return color;

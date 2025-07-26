@@ -1,4 +1,4 @@
-package com.polyak.iconswitch;
+package io.scalaproject.iconswitch;
 
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
@@ -6,7 +6,7 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Created by polyak01 on 31.03.2017.
@@ -14,8 +14,8 @@ import android.support.annotation.NonNull;
  */
 class IconSwitchBg extends Drawable {
 
-    private RectF bounds;
-    private Paint paint;
+    private final RectF bounds;
+    private final Paint paint;
 
     private float radiusX;
 
